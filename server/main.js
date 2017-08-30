@@ -8,3 +8,12 @@ Meteor.startup(() => {
     return Questions.find({});
   });
 });
+
+Meteor.methods({
+  'stringUpdate'({ value, name }) {
+    Answers.upsert(
+      { "_id" : name, "user": Meteor.userId()},
+      { "_id": name, "user": Meteor.userId(), "value" : value}
+    );
+  }
+});

@@ -41,10 +41,17 @@ class QuestionDetail extends Component {
       name: event.target.name,
       value: event.target.value
     });*/
-    Answers.upsert(
-      { "_id" : event.target.name},
-      { "_id": event.target.name, "user": Meteor.userId(), "value" : event.target.value}
-    );
+    Meteor.call('stringUpdate', {
+      value: event.target.value,
+      name: event.target.name
+    }, (err, res) => {
+      if (err) {
+        alert(err);
+      } else {
+        // success!
+      }
+    });
+
   }
 
 };
